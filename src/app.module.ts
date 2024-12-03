@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -11,14 +12,15 @@ import { UserModule } from './user/user.module';
     TypeOrmModule.forRoot({
       type              : 'mysql',
       host              : 'localhost',
-      database          : process.env.DB_DATABASE,
-      username          : process.env.DB_USER,
-      password          : process.env.DB_PASSWORD,
+      database          : process.env.DATABASE,
+      username          : process.env.DATABASE_USER,
+      password          : process.env.DATABASE_PASSWORD,
       port              : 3307,
       autoLoadEntities  : true,
       synchronize       : true
     }),
     UserModule,
+    CardModule
   ],
   controllers: [AppController],
   providers: [AppService],
