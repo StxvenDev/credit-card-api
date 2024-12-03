@@ -7,9 +7,7 @@ export class Transaction {
     @PrimaryGeneratedColumn()
     id : number;
 
-    @Column('float',{
-        unique : true
-    })
+    @Column('float')
     amount : number;
 
     @Column('varchar')

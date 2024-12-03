@@ -36,7 +36,6 @@ export class CardService {
     return cards;
   }
 
-  //endpoint numero 2
   async getCards(id : number){
     const queryBuilder = this.cardRepository.createQueryBuilder('card');
     const userCards = await queryBuilder.where('card.user =:userId',{
@@ -90,7 +89,7 @@ export class CardService {
       throw new BadRequestException('El valor de la compra debe ser mayor a cero')
     card.balance += amount;
     if(card.balance > card.creditLimit)
-      throw new BadRequestException('Esta compra excede el limite de compra')
+      throw new BadRequestException('Esta compra excede el limite de credito')
     try {
       await queryRunner.connect();
       await queryRunner.startTransaction();
@@ -107,6 +106,7 @@ export class CardService {
         transaction
       }
     } catch (error) {
+      console.log(error);
       await queryRunner.rollbackTransaction();
     }finally{
       await queryRunner.release();
